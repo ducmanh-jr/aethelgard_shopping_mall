@@ -4,6 +4,8 @@ import React, { useMemo } from 'react';
 import type { Product } from '@/types';
 import { formatVND, calculateSellerFinancials, detectBrand, generateSkuCode } from '@/lib/utils';
 
+import { inventoryService } from '@/services/inventory.service';
+
 interface SellerDrawerProps {
   isOpen: boolean;
   product: Product | null;
@@ -53,8 +55,17 @@ export const SellerDrawer: React.FC<SellerDrawerProps> = ({
     }
   };
 
-  const quickRestock = () => {
-    onShowToast(`Đã ghi nhận tạo phiếu nhập thêm +20 sản phẩm cho "${product.name}"!`);
+  const quickRestock = async () => {
+    try {
+      await inventoryService.restock({
+        productId: product.id,
+        additionalQuantity: 20,
+      });
+      product.stockQuantity = (product.stockQuantity || 0) + 20;
+      onShowToast(`Đã nhập thêm thành công +20 tồn kho cho "${product.name}"!`);
+    } catch {
+      onShowToast(`Không thể nhập kho lúc này.`);
+    }
   };
 
   return (

@@ -20,7 +20,7 @@ public class OrderService : IOrderService
         _mapper = mapper;
     }
 
-    public async Task<List<OrderDto>> GetOrdersAsync(OrderStatus? status = null)
+    public async Task<List<OrderDto>> GetOrdersAsync(OrderStatus? status = null, int? userId = null, string? role = null)
     {
         var query = _unitOfWork.Orders.Query()
             .Include(o => o.Items)
@@ -31,11 +31,26 @@ public class OrderService : IOrderService
             query = query.Where(o => o.Status == status.Value);
         }
 
+        // Khách hàng chỉ xem đơn hàng của chính mình
+        if (userId.HasValue && role == "Customer")
+        {
+            query = query.Where(o => o.UserId == userId.Value);
+        }
+        // Seller chỉ xem đơn hàng chứa sản phẩm của mình
+        else if (userId.HasValue && role == "Seller")
+        {
+            var sellerProductIds = await _unitOfWork.Products.Query()
+                .Where(p => p.SellerId == userId.Value)
+                .Select(p => p.Id)
+                .ToListAsync();
+            query = query.Where(o => o.Items.Any(item => item.ProductId.HasValue && sellerProductIds.Contains(item.ProductId.Value)));
+        }
+
         var orders = await query.OrderByDescending(o => o.Id).ToListAsync();
         return _mapper.Map<List<OrderDto>>(orders);
     }
 
-    public async Task<OrderDto> GetOrderByIdAsync(int id)
+    public async Task<OrderDto> GetOrderByIdAsync(int id, int? userId = null, string? role = null)
     {
         var order = await _unitOfWork.Orders.Query()
             .Include(o => o.Items)
@@ -43,6 +58,12 @@ public class OrderService : IOrderService
 
         if (order == null)
             throw new NotFoundException("Đơn hàng", id);
+
+        // Khách hàng chỉ xem được đơn hàng của chính mình
+        if (userId.HasValue && role != "Admin" && role != "Seller" && order.UserId != userId.Value)
+        {
+            throw new UnauthorizedException("Bạn không có quyền truy cập thông tin đơn hàng này.");
+        }
 
         return _mapper.Map<OrderDto>(order);
     }
@@ -72,11 +93,38 @@ public class OrderService : IOrderService
 
         foreach (var item in request.Items)
         {
-            var product = await _unitOfWork.Products.GetByIdAsync(item.ProductId);
+            var product = await _unitOfWork.Products.Query()
+                .Include(p => p.Variants)
+                .FirstOrDefaultAsync(p => p.Id == item.ProductId);
+
             if (product == null)
                 throw new NotFoundException("Sản phẩm trong giỏ", item.ProductId);
 
-            var itemSubtotal = product.BasePrice * item.Quantity;
+            // 1. Kiểm tra tồn kho sản phẩm cha - Chặn bán khống (Overselling)
+            if (product.StockQuantity < item.Quantity)
+            {
+                throw new BadRequestException($"Sản phẩm '{product.Name}' chỉ còn {product.StockQuantity} sản phẩm trong kho, không đủ đáp ứng số lượng yêu cầu ({item.Quantity}).");
+            }
+
+            // 2. Kiểm tra và trừ tồn kho biến thể (nếu có Specs cụ thể)
+            if (product.Variants != null && product.Variants.Any() && !string.IsNullOrWhiteSpace(item.Specs))
+            {
+                var matchedVariant = product.Variants.FirstOrDefault(v =>
+                    item.Specs.Contains(v.Size, StringComparison.OrdinalIgnoreCase) ||
+                    (!string.IsNullOrEmpty(v.Color) && item.Specs.Contains(v.Color, StringComparison.OrdinalIgnoreCase)));
+
+                if (matchedVariant != null)
+                {
+                    if (matchedVariant.StockQuantity < item.Quantity)
+                    {
+                        throw new BadRequestException($"Phiên bản '{item.Specs}' của sản phẩm '{product.Name}' chỉ còn {matchedVariant.StockQuantity} sản phẩm trong kho.");
+                    }
+                    matchedVariant.StockQuantity -= item.Quantity;
+                }
+            }
+
+            var itemPrice = product.BasePrice;
+            var itemSubtotal = itemPrice * item.Quantity;
             subtotal += itemSubtotal;
 
             orderItems.Add(new OrderItem
@@ -85,21 +133,19 @@ public class OrderService : IOrderService
                 ProductName = product.Name,
                 Specs = item.Specs,
                 ImageUrl = product.ImageUrl,
-                Price = product.BasePrice,
+                Price = itemPrice,
                 Quantity = item.Quantity,
                 Subtotal = itemSubtotal
             });
 
-            // Giảm tồn kho
-            if (product.StockQuantity >= item.Quantity)
-            {
-                product.StockQuantity -= item.Quantity;
-                if (product.StockQuantity == 0)
-                    product.StockStatus = StockStatus.OutOfStock;
-                else if (product.StockQuantity <= 10)
-                    product.StockStatus = StockStatus.LowStock;
-                _unitOfWork.Products.Update(product);
-            }
+            // 3. Giảm tồn kho sản phẩm cha & cập nhật trạng thái kho
+            product.StockQuantity -= item.Quantity;
+            if (product.StockQuantity == 0)
+                product.StockStatus = StockStatus.OutOfStock;
+            else if (product.StockQuantity <= 10)
+                product.StockStatus = StockStatus.LowStock;
+
+            _unitOfWork.Products.Update(product);
         }
 
         var shippingCharge = subtotal > 10000000 ? 0 : 50000;
@@ -136,8 +182,13 @@ public class OrderService : IOrderService
         return await GetOrderByIdAsync(order.Id);
     }
 
-    public async Task<OrderDto> UpdateOrderStatusAsync(int id, UpdateOrderStatusDto request)
+    public async Task<OrderDto> UpdateOrderStatusAsync(int id, UpdateOrderStatusDto request, string? role = null)
     {
+        if (role != null && role != "Admin" && role != "Seller")
+        {
+            throw new UnauthorizedException("Chỉ người bán (Seller) hoặc Quản trị viên (Admin) mới có quyền cập nhật trạng thái đơn hàng.");
+        }
+
         var order = await _unitOfWork.Orders.Query()
             .Include(o => o.Items)
             .FirstOrDefaultAsync(o => o.Id == id);

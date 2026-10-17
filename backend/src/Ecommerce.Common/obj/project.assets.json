@@ -13,11 +13,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Admin\\ducmanh\\main\\backend\\src\\Ecommerce.Common\\Ecommerce.Common.csproj",
+      "projectUniqueName": "C:\\Users\\Admin\\.ng\\.m\\.He-thong-thuong-mai-ien-tu-tich-hop-AI\\backend\\src\\Ecommerce.Common\\Ecommerce.Common.csproj",
       "projectName": "Ecommerce.Common",
-      "projectPath": "C:\\Users\\Admin\\ducmanh\\main\\backend\\src\\Ecommerce.Common\\Ecommerce.Common.csproj",
+      "projectPath": "C:\\Users\\Admin\\.ng\\.m\\.He-thong-thuong-mai-ien-tu-tich-hop-AI\\backend\\src\\Ecommerce.Common\\Ecommerce.Common.csproj",
       "packagesPath": "C:\\Users\\Admin\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Admin\\ducmanh\\main\\backend\\src\\Ecommerce.Common\\obj\\",
+      "outputPath": "C:\\Users\\Admin\\.ng\\.m\\.He-thong-thuong-mai-ien-tu-tich-hop-AI\\backend\\src\\Ecommerce.Common\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Admin\\AppData\\Roaming\\NuGet\\NuGet.Config"

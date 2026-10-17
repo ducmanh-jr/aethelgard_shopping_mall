@@ -8,7 +8,9 @@ export const APP_SHORT_NAME = 'Aethelgard Mall';
 
 /** API Configuration */
 export const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api';
-export const API_TIMEOUT = 4000;
+// Tăng từ 4000ms → 10000ms: Backend .NET cần thời gian warm-up JIT + DB connection pool
+// lần đầu chạy. 4s quá ngắn gây timeout trước khi nhận được response.
+export const API_TIMEOUT = 10000;
 
 /** Local Storage Keys */
 export const STORAGE_KEYS = {

@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { X, Check, Upload, Tag, DollarSign, Image as ImageIcon, FileText, AlertCircle } from 'lucide-react';
+import { X, Check, Upload, Tag, DollarSign, Image as ImageIcon, FileText, AlertCircle, Sparkles } from 'lucide-react';
 import { productService } from '@/services/product.service';
 import type { Product, Category } from '@/types';
 
@@ -30,6 +30,7 @@ export function ProductEditorModal({
   const isEdit = !!initialProduct;
   const [currentStep, setCurrentStep] = useState(1);
   const [loading, setLoading] = useState(false);
+  const [isGeneratingAI, setIsGeneratingAI] = useState(false);
   const [error, setError] = useState('');
 
   // Form states
@@ -46,6 +47,17 @@ export function ProductEditorModal({
   const [stockQuantity, setStockQuantity] = useState<number>(50);
   const [imageUrl, setImageUrl] = useState('/img/products/gucci-sneaker.jpg');
   const [description, setDescription] = useState('');
+
+  const handleGenerateAIDescription = () => {
+    setIsGeneratingAI(true);
+    setTimeout(() => {
+      const selectedCategory = categories.find(c => c.id === Number(categoryId))?.name || 'Thời Trang Cao Cấp';
+      const promptName = name.trim() || 'Sản phẩm Haute Couture';
+      const generated = `[Aethelgard AI Stylist]: Tuyệt tác ${promptName} thuộc phân khúc ${selectedCategory} danh giá trong bộ sưu tập ${collectionName}. Được chế tác thủ công hoàn mỹ từ chất liệu ${material}, phom dáng chuẩn mực tôn vinh nét sang trọng đương đại. Thích hợp cho cả những buổi dạ tiệc thượng lưu lẫn phong cách thời trang đường phố cao cấp.`;
+      setDescription(generated);
+      setIsGeneratingAI(false);
+    }, 500);
+  };
 
   useEffect(() => {
     if (initialProduct) {
@@ -431,9 +443,20 @@ export function ProductEditorModal({
               </div>
 
               <div>
-                <label className="block text-xs font-semibold text-slate-700 mb-1">
-                  Mô Tả Sản Phẩm
-                </label>
+                <div className="flex items-center justify-between mb-1">
+                  <label className="block text-xs font-semibold text-slate-700">
+                    Mô Tả Sản Phẩm
+                  </label>
+                  <button
+                    type="button"
+                    onClick={handleGenerateAIDescription}
+                    disabled={isGeneratingAI}
+                    className="flex items-center gap-1.5 px-3 py-1 rounded-lg bg-indigo-50 border border-indigo-200 text-indigo-700 hover:bg-indigo-100 text-xs font-bold transition-all shadow-sm cursor-pointer"
+                  >
+                    <Sparkles className="w-3.5 h-3.5 text-indigo-600 animate-pulse" />
+                    <span>{isGeneratingAI ? 'AI đang sáng tạo...' : '✨ AI Viết Mô Tả'}</span>
+                  </button>
+                </div>
                 <textarea
                   rows={3}
                   value={description}

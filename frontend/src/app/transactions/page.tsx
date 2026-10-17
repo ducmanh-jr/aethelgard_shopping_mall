@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Wallet,
   Building,
@@ -91,9 +91,36 @@ export default function TransactionsPage() {
   const [withdrawAmount, setWithdrawAmount] = useState<number>(10000000);
   const [transactions, setTransactions] = useState<Transaction[]>(initialTransactions);
 
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const stored = localStorage.getItem('aethelgard_seller_wallet');
+      if (stored) {
+        try {
+          const parsed = JSON.parse(stored);
+          if (parsed.balance !== undefined) setBalance(parsed.balance);
+          if (parsed.bankName) setBankName(parsed.bankName);
+          if (parsed.accountNumber) setAccountNumber(parsed.accountNumber);
+          if (parsed.accountHolder) setAccountHolder(parsed.accountHolder);
+          if (Array.isArray(parsed.transactions) && parsed.transactions.length > 0) {
+            setTransactions(parsed.transactions);
+          }
+        } catch {}
+      }
+    }
+  }, []);
+
   const handleSaveBank = (e: React.FormEvent) => {
     e.preventDefault();
     setIsEditingBank(false);
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('aethelgard_seller_wallet', JSON.stringify({
+        balance,
+        bankName,
+        accountNumber,
+        accountHolder,
+        transactions,
+      }));
+    }
     showToast('Đã lưu thông tin tài khoản ngân hàng thụ hưởng thành công!');
   };
 
@@ -117,7 +144,8 @@ export default function TransactionsPage() {
 
     if (!isConfirmed) return;
 
-    setBalance((prev) => prev - withdrawAmount);
+    const newBalance = balance - withdrawAmount;
+    setBalance(newBalance);
     const newTx: Transaction = {
       id: `TX-${Date.now().toString().slice(-4)}`,
       type: 'WITHDRAWAL',
@@ -126,7 +154,17 @@ export default function TransactionsPage() {
       date: new Date().toISOString().replace('T', ' ').slice(0, 16),
       note: `Rút tiền về ${bankName.split('-')[0].trim()} (STK: ${accountNumber})`,
     };
-    setTransactions([newTx, ...transactions]);
+    const updatedTxs = [newTx, ...transactions];
+    setTransactions(updatedTxs);
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('aethelgard_seller_wallet', JSON.stringify({
+        balance: newBalance,
+        bankName,
+        accountNumber,
+        accountHolder,
+        transactions: updatedTxs,
+      }));
+    }
     setShowWithdrawModal(false);
     showToast(`Đã tạo lệnh rút ${withdrawAmount.toLocaleString('vi-VN')} đ thành công!`);
   };

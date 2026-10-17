@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Admin\\ducmanh\\main\\backend\\tests\\Ecommerce.Tests.Integration\\Ecommerce.Tests.Integration.csproj": {}
+    "C:\\Users\\Admin\\.ng\\.m\\.He-thong-thuong-mai-ien-tu-tich-hop-AI\\backend\\tests\\Ecommerce.Tests.Integration\\Ecommerce.Tests.Integration.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Admin\\ducmanh\\main\\backend\\src\\Ecommerce.API\\Ecommerce.API.csproj": {
+    "C:\\Users\\Admin\\.ng\\.m\\.He-thong-thuong-mai-ien-tu-tich-hop-AI\\backend\\src\\Ecommerce.API\\Ecommerce.API.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Admin\\ducmanh\\main\\backend\\src\\Ecommerce.API\\Ecommerce.API.csproj",
+        "projectUniqueName": "C:\\Users\\Admin\\.ng\\.m\\.He-thong-thuong-mai-ien-tu-tich-hop-AI\\backend\\src\\Ecommerce.API\\Ecommerce.API.csproj",
         "projectName": "Ecommerce.API",
-        "projectPath": "C:\\Users\\Admin\\ducmanh\\main\\backend\\src\\Ecommerce.API\\Ecommerce.API.csproj",
+        "projectPath": "C:\\Users\\Admin\\.ng\\.m\\.He-thong-thuong-mai-ien-tu-tich-hop-AI\\backend\\src\\Ecommerce.API\\Ecommerce.API.csproj",
         "packagesPath": "C:\\Users\\Admin\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Admin\\ducmanh\\main\\backend\\src\\Ecommerce.API\\obj\\",
+        "outputPath": "C:\\Users\\Admin\\.ng\\.m\\.He-thong-thuong-mai-ien-tu-tich-hop-AI\\backend\\src\\Ecommerce.API\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Admin\\AppData\\Roaming\\NuGet\\NuGet.Config"
@@ -26,14 +26,14 @@
           "net10.0": {
             "targetAlias": "net10.0",
             "projectReferences": {
-              "C:\\Users\\Admin\\ducmanh\\main\\backend\\src\\Ecommerce.BLL\\Ecommerce.BLL.csproj": {
-                "projectPath": "C:\\Users\\Admin\\ducmanh\\main\\backend\\src\\Ecommerce.BLL\\Ecommerce.BLL.csproj"
+              "C:\\Users\\Admin\\.ng\\.m\\.He-thong-thuong-mai-ien-tu-tich-hop-AI\\backend\\src\\Ecommerce.BLL\\Ecommerce.BLL.csproj": {
+                "projectPath": "C:\\Users\\Admin\\.ng\\.m\\.He-thong-thuong-mai-ien-tu-tich-hop-AI\\backend\\src\\Ecommerce.BLL\\Ecommerce.BLL.csproj"
               },
-              "C:\\Users\\Admin\\ducmanh\\main\\backend\\src\\Ecommerce.Common\\Ecommerce.Common.csproj": {
-                "projectPath": "C:\\Users\\Admin\\ducmanh\\main\\backend\\src\\Ecommerce.Common\\Ecommerce.Common.csproj"
+              "C:\\Users\\Admin\\.ng\\.m\\.He-thong-thuong-mai-ien-tu-tich-hop-AI\\backend\\src\\Ecommerce.Common\\Ecommerce.Common.csproj": {
+                "projectPath": "C:\\Users\\Admin\\.ng\\.m\\.He-thong-thuong-mai-ien-tu-tich-hop-AI\\backend\\src\\Ecommerce.Common\\Ecommerce.Common.csproj"
               },
-              "C:\\Users\\Admin\\ducmanh\\main\\backend\\src\\Ecommerce.DAL\\Ecommerce.DAL.csproj": {
-                "projectPath": "C:\\Users\\Admin\\ducmanh\\main\\backend\\src\\Ecommerce.DAL\\Ecommerce.DAL.csproj"
+              "C:\\Users\\Admin\\.ng\\.m\\.He-thong-thuong-mai-ien-tu-tich-hop-AI\\backend\\src\\Ecommerce.DAL\\Ecommerce.DAL.csproj": {
+                "projectPath": "C:\\Users\\Admin\\.ng\\.m\\.He-thong-thuong-mai-ien-tu-tich-hop-AI\\backend\\src\\Ecommerce.DAL\\Ecommerce.DAL.csproj"
               }
             }
           }
@@ -510,14 +510,14 @@
         }
       }
     },
-    "C:\\Users\\Admin\\ducmanh\\main\\backend\\src\\Ecommerce.BLL\\Ecommerce.BLL.csproj": {
+    "C:\\Users\\Admin\\.ng\\.m\\.He-thong-thuong-mai-ien-tu-tich-hop-AI\\backend\\src\\Ecommerce.BLL\\Ecommerce.BLL.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Admin\\ducmanh\\main\\backend\\src\\Ecommerce.BLL\\Ecommerce.BLL.csproj",
+        "projectUniqueName": "C:\\Users\\Admin\\.ng\\.m\\.He-thong-thuong-mai-ien-tu-tich-hop-AI\\backend\\src\\Ecommerce.BLL\\Ecommerce.BLL.csproj",
         "projectName": "Ecommerce.BLL",
-        "projectPath": "C:\\Users\\Admin\\ducmanh\\main\\backend\\src\\Ecommerce.BLL\\Ecommerce.BLL.csproj",
+        "projectPath": "C:\\Users\\Admin\\.ng\\.m\\.He-thong-thuong-mai-ien-tu-tich-hop-AI\\backend\\src\\Ecommerce.BLL\\Ecommerce.BLL.csproj",
         "packagesPath": "C:\\Users\\Admin\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Admin\\ducmanh\\main\\backend\\src\\Ecommerce.BLL\\obj\\",
+        "outputPath": "C:\\Users\\Admin\\.ng\\.m\\.He-thong-thuong-mai-ien-tu-tich-hop-AI\\backend\\src\\Ecommerce.BLL\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Admin\\AppData\\Roaming\\NuGet\\NuGet.Config"
@@ -532,11 +532,11 @@
           "net10.0": {
             "targetAlias": "net10.0",
             "projectReferences": {
-              "C:\\Users\\Admin\\ducmanh\\main\\backend\\src\\Ecommerce.Common\\Ecommerce.Common.csproj": {
-                "projectPath": "C:\\Users\\Admin\\ducmanh\\main\\backend\\src\\Ecommerce.Common\\Ecommerce.Common.csproj"
+              "C:\\Users\\Admin\\.ng\\.m\\.He-thong-thuong-mai-ien-tu-tich-hop-AI\\backend\\src\\Ecommerce.Common\\Ecommerce.Common.csproj": {
+                "projectPath": "C:\\Users\\Admin\\.ng\\.m\\.He-thong-thuong-mai-ien-tu-tich-hop-AI\\backend\\src\\Ecommerce.Common\\Ecommerce.Common.csproj"
               },
-              "C:\\Users\\Admin\\ducmanh\\main\\backend\\src\\Ecommerce.DAL\\Ecommerce.DAL.csproj": {
-                "projectPath": "C:\\Users\\Admin\\ducmanh\\main\\backend\\src\\Ecommerce.DAL\\Ecommerce.DAL.csproj"
+              "C:\\Users\\Admin\\.ng\\.m\\.He-thong-thuong-mai-ien-tu-tich-hop-AI\\backend\\src\\Ecommerce.DAL\\Ecommerce.DAL.csproj": {
+                "projectPath": "C:\\Users\\Admin\\.ng\\.m\\.He-thong-thuong-mai-ien-tu-tich-hop-AI\\backend\\src\\Ecommerce.DAL\\Ecommerce.DAL.csproj"
               }
             }
           }
@@ -868,14 +868,14 @@
         }
       }
     },
-    "C:\\Users\\Admin\\ducmanh\\main\\backend\\src\\Ecommerce.Common\\Ecommerce.Common.csproj": {
+    "C:\\Users\\Admin\\.ng\\.m\\.He-thong-thuong-mai-ien-tu-tich-hop-AI\\backend\\src\\Ecommerce.Common\\Ecommerce.Common.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Admin\\ducmanh\\main\\backend\\src\\Ecommerce.Common\\Ecommerce.Common.csproj",
+        "projectUniqueName": "C:\\Users\\Admin\\.ng\\.m\\.He-thong-thuong-mai-ien-tu-tich-hop-AI\\backend\\src\\Ecommerce.Common\\Ecommerce.Common.csproj",
         "projectName": "Ecommerce.Common",
-        "projectPath": "C:\\Users\\Admin\\ducmanh\\main\\backend\\src\\Ecommerce.Common\\Ecommerce.Common.csproj",
+        "projectPath": "C:\\Users\\Admin\\.ng\\.m\\.He-thong-thuong-mai-ien-tu-tich-hop-AI\\backend\\src\\Ecommerce.Common\\Ecommerce.Common.csproj",
         "packagesPath": "C:\\Users\\Admin\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Admin\\ducmanh\\main\\backend\\src\\Ecommerce.Common\\obj\\",
+        "outputPath": "C:\\Users\\Admin\\.ng\\.m\\.He-thong-thuong-mai-ien-tu-tich-hop-AI\\backend\\src\\Ecommerce.Common\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Admin\\AppData\\Roaming\\NuGet\\NuGet.Config"
@@ -1201,14 +1201,14 @@
         }
       }
     },
-    "C:\\Users\\Admin\\ducmanh\\main\\backend\\src\\Ecommerce.DAL\\Ecommerce.DAL.csproj": {
+    "C:\\Users\\Admin\\.ng\\.m\\.He-thong-thuong-mai-ien-tu-tich-hop-AI\\backend\\src\\Ecommerce.DAL\\Ecommerce.DAL.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Admin\\ducmanh\\main\\backend\\src\\Ecommerce.DAL\\Ecommerce.DAL.csproj",
+        "projectUniqueName": "C:\\Users\\Admin\\.ng\\.m\\.He-thong-thuong-mai-ien-tu-tich-hop-AI\\backend\\src\\Ecommerce.DAL\\Ecommerce.DAL.csproj",
         "projectName": "Ecommerce.DAL",
-        "projectPath": "C:\\Users\\Admin\\ducmanh\\main\\backend\\src\\Ecommerce.DAL\\Ecommerce.DAL.csproj",
+        "projectPath": "C:\\Users\\Admin\\.ng\\.m\\.He-thong-thuong-mai-ien-tu-tich-hop-AI\\backend\\src\\Ecommerce.DAL\\Ecommerce.DAL.csproj",
         "packagesPath": "C:\\Users\\Admin\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Admin\\ducmanh\\main\\backend\\src\\Ecommerce.DAL\\obj\\",
+        "outputPath": "C:\\Users\\Admin\\.ng\\.m\\.He-thong-thuong-mai-ien-tu-tich-hop-AI\\backend\\src\\Ecommerce.DAL\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Admin\\AppData\\Roaming\\NuGet\\NuGet.Config"
@@ -1223,8 +1223,8 @@
           "net10.0": {
             "targetAlias": "net10.0",
             "projectReferences": {
-              "C:\\Users\\Admin\\ducmanh\\main\\backend\\src\\Ecommerce.Common\\Ecommerce.Common.csproj": {
-                "projectPath": "C:\\Users\\Admin\\ducmanh\\main\\backend\\src\\Ecommerce.Common\\Ecommerce.Common.csproj"
+              "C:\\Users\\Admin\\.ng\\.m\\.He-thong-thuong-mai-ien-tu-tich-hop-AI\\backend\\src\\Ecommerce.Common\\Ecommerce.Common.csproj": {
+                "projectPath": "C:\\Users\\Admin\\.ng\\.m\\.He-thong-thuong-mai-ien-tu-tich-hop-AI\\backend\\src\\Ecommerce.Common\\Ecommerce.Common.csproj"
               }
             }
           }
@@ -1554,14 +1554,14 @@
         }
       }
     },
-    "C:\\Users\\Admin\\ducmanh\\main\\backend\\tests\\Ecommerce.Tests.Integration\\Ecommerce.Tests.Integration.csproj": {
+    "C:\\Users\\Admin\\.ng\\.m\\.He-thong-thuong-mai-ien-tu-tich-hop-AI\\backend\\tests\\Ecommerce.Tests.Integration\\Ecommerce.Tests.Integration.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Admin\\ducmanh\\main\\backend\\tests\\Ecommerce.Tests.Integration\\Ecommerce.Tests.Integration.csproj",
+        "projectUniqueName": "C:\\Users\\Admin\\.ng\\.m\\.He-thong-thuong-mai-ien-tu-tich-hop-AI\\backend\\tests\\Ecommerce.Tests.Integration\\Ecommerce.Tests.Integration.csproj",
         "projectName": "Ecommerce.Tests.Integration",
-        "projectPath": "C:\\Users\\Admin\\ducmanh\\main\\backend\\tests\\Ecommerce.Tests.Integration\\Ecommerce.Tests.Integration.csproj",
+        "projectPath": "C:\\Users\\Admin\\.ng\\.m\\.He-thong-thuong-mai-ien-tu-tich-hop-AI\\backend\\tests\\Ecommerce.Tests.Integration\\Ecommerce.Tests.Integration.csproj",
         "packagesPath": "C:\\Users\\Admin\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Admin\\ducmanh\\main\\backend\\tests\\Ecommerce.Tests.Integration\\obj\\",
+        "outputPath": "C:\\Users\\Admin\\.ng\\.m\\.He-thong-thuong-mai-ien-tu-tich-hop-AI\\backend\\tests\\Ecommerce.Tests.Integration\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Admin\\AppData\\Roaming\\NuGet\\NuGet.Config"
@@ -1576,17 +1576,17 @@
           "net10.0": {
             "targetAlias": "net10.0",
             "projectReferences": {
-              "C:\\Users\\Admin\\ducmanh\\main\\backend\\src\\Ecommerce.API\\Ecommerce.API.csproj": {
-                "projectPath": "C:\\Users\\Admin\\ducmanh\\main\\backend\\src\\Ecommerce.API\\Ecommerce.API.csproj"
+              "C:\\Users\\Admin\\.ng\\.m\\.He-thong-thuong-mai-ien-tu-tich-hop-AI\\backend\\src\\Ecommerce.API\\Ecommerce.API.csproj": {
+                "projectPath": "C:\\Users\\Admin\\.ng\\.m\\.He-thong-thuong-mai-ien-tu-tich-hop-AI\\backend\\src\\Ecommerce.API\\Ecommerce.API.csproj"
               },
-              "C:\\Users\\Admin\\ducmanh\\main\\backend\\src\\Ecommerce.BLL\\Ecommerce.BLL.csproj": {
-                "projectPath": "C:\\Users\\Admin\\ducmanh\\main\\backend\\src\\Ecommerce.BLL\\Ecommerce.BLL.csproj"
+              "C:\\Users\\Admin\\.ng\\.m\\.He-thong-thuong-mai-ien-tu-tich-hop-AI\\backend\\src\\Ecommerce.BLL\\Ecommerce.BLL.csproj": {
+                "projectPath": "C:\\Users\\Admin\\.ng\\.m\\.He-thong-thuong-mai-ien-tu-tich-hop-AI\\backend\\src\\Ecommerce.BLL\\Ecommerce.BLL.csproj"
               },
-              "C:\\Users\\Admin\\ducmanh\\main\\backend\\src\\Ecommerce.Common\\Ecommerce.Common.csproj": {
-                "projectPath": "C:\\Users\\Admin\\ducmanh\\main\\backend\\src\\Ecommerce.Common\\Ecommerce.Common.csproj"
+              "C:\\Users\\Admin\\.ng\\.m\\.He-thong-thuong-mai-ien-tu-tich-hop-AI\\backend\\src\\Ecommerce.Common\\Ecommerce.Common.csproj": {
+                "projectPath": "C:\\Users\\Admin\\.ng\\.m\\.He-thong-thuong-mai-ien-tu-tich-hop-AI\\backend\\src\\Ecommerce.Common\\Ecommerce.Common.csproj"
               },
-              "C:\\Users\\Admin\\ducmanh\\main\\backend\\src\\Ecommerce.DAL\\Ecommerce.DAL.csproj": {
-                "projectPath": "C:\\Users\\Admin\\ducmanh\\main\\backend\\src\\Ecommerce.DAL\\Ecommerce.DAL.csproj"
+              "C:\\Users\\Admin\\.ng\\.m\\.He-thong-thuong-mai-ien-tu-tich-hop-AI\\backend\\src\\Ecommerce.DAL\\Ecommerce.DAL.csproj": {
+                "projectPath": "C:\\Users\\Admin\\.ng\\.m\\.He-thong-thuong-mai-ien-tu-tich-hop-AI\\backend\\src\\Ecommerce.DAL\\Ecommerce.DAL.csproj"
               }
             }
           }

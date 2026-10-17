@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Tag, Plus, Trash2, Calendar, Percent, DollarSign, CheckCircle2, AlertCircle } from 'lucide-react';
 import { useToast } from '@/hooks/useToast';
 import { useConfirmDialog } from '@/components/ui/ConfirmDialog';
@@ -70,6 +70,20 @@ export default function VouchersPage() {
   const [vouchers, setVouchers] = useState<VoucherItem[]>(initialVouchers);
   const [showCreateModal, setShowCreateModal] = useState(false);
 
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const stored = localStorage.getItem('aethelgard_seller_vouchers');
+      if (stored) {
+        try {
+          const parsed = JSON.parse(stored);
+          if (Array.isArray(parsed) && parsed.length > 0) {
+            setVouchers(parsed);
+          }
+        } catch {}
+      }
+    }
+  }, []);
+
   // Form State
   const [code, setCode] = useState('');
   const [name, setName] = useState('');
@@ -103,7 +117,11 @@ export default function VouchersPage() {
       isActive: true,
     };
 
-    setVouchers([newVoucher, ...vouchers]);
+    const updated = [newVoucher, ...vouchers];
+    setVouchers(updated);
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('aethelgard_seller_vouchers', JSON.stringify(updated));
+    }
     showToast(`Đã tạo thành công voucher khuyến mãi "${newVoucher.code}"!`);
     setShowCreateModal(false);
     setCode('');
@@ -121,7 +139,13 @@ export default function VouchersPage() {
 
     if (!isConfirmed) return;
 
-    setVouchers((prev) => prev.filter((item) => item.id !== v.id));
+    setVouchers((prev) => {
+      const next = prev.filter((item) => item.id !== v.id);
+      if (typeof window !== 'undefined') {
+        localStorage.setItem('aethelgard_seller_vouchers', JSON.stringify(next));
+      }
+      return next;
+    });
     showToast(`Đã xóa voucher "${v.code}".`);
   };
 

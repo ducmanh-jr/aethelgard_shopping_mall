@@ -3161,11 +3161,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Admin\\ducmanh\\main\\backend\\tests\\Ecommerce.Tests.Unit\\Ecommerce.Tests.Unit.csproj",
+      "projectUniqueName": "C:\\Users\\Admin\\.ng\\.m\\.He-thong-thuong-mai-ien-tu-tich-hop-AI\\backend\\tests\\Ecommerce.Tests.Unit\\Ecommerce.Tests.Unit.csproj",
       "projectName": "Ecommerce.Tests.Unit",
-      "projectPath": "C:\\Users\\Admin\\ducmanh\\main\\backend\\tests\\Ecommerce.Tests.Unit\\Ecommerce.Tests.Unit.csproj",
+      "projectPath": "C:\\Users\\Admin\\.ng\\.m\\.He-thong-thuong-mai-ien-tu-tich-hop-AI\\backend\\tests\\Ecommerce.Tests.Unit\\Ecommerce.Tests.Unit.csproj",
       "packagesPath": "C:\\Users\\Admin\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Admin\\ducmanh\\main\\backend\\tests\\Ecommerce.Tests.Unit\\obj\\",
+      "outputPath": "C:\\Users\\Admin\\.ng\\.m\\.He-thong-thuong-mai-ien-tu-tich-hop-AI\\backend\\tests\\Ecommerce.Tests.Unit\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Admin\\AppData\\Roaming\\NuGet\\NuGet.Config"
@@ -3180,14 +3180,14 @@
         "net10.0": {
           "targetAlias": "net10.0",
           "projectReferences": {
-            "C:\\Users\\Admin\\ducmanh\\main\\backend\\src\\Ecommerce.BLL\\Ecommerce.BLL.csproj": {
-              "projectPath": "C:\\Users\\Admin\\ducmanh\\main\\backend\\src\\Ecommerce.BLL\\Ecommerce.BLL.csproj"
+            "C:\\Users\\Admin\\.ng\\.m\\.He-thong-thuong-mai-ien-tu-tich-hop-AI\\backend\\src\\Ecommerce.BLL\\Ecommerce.BLL.csproj": {
+              "projectPath": "C:\\Users\\Admin\\.ng\\.m\\.He-thong-thuong-mai-ien-tu-tich-hop-AI\\backend\\src\\Ecommerce.BLL\\Ecommerce.BLL.csproj"
             },
-            "C:\\Users\\Admin\\ducmanh\\main\\backend\\src\\Ecommerce.Common\\Ecommerce.Common.csproj": {
-              "projectPath": "C:\\Users\\Admin\\ducmanh\\main\\backend\\src\\Ecommerce.Common\\Ecommerce.Common.csproj"
+            "C:\\Users\\Admin\\.ng\\.m\\.He-thong-thuong-mai-ien-tu-tich-hop-AI\\backend\\src\\Ecommerce.Common\\Ecommerce.Common.csproj": {
+              "projectPath": "C:\\Users\\Admin\\.ng\\.m\\.He-thong-thuong-mai-ien-tu-tich-hop-AI\\backend\\src\\Ecommerce.Common\\Ecommerce.Common.csproj"
             },
-            "C:\\Users\\Admin\\ducmanh\\main\\backend\\src\\Ecommerce.DAL\\Ecommerce.DAL.csproj": {
-              "projectPath": "C:\\Users\\Admin\\ducmanh\\main\\backend\\src\\Ecommerce.DAL\\Ecommerce.DAL.csproj"
+            "C:\\Users\\Admin\\.ng\\.m\\.He-thong-thuong-mai-ien-tu-tich-hop-AI\\backend\\src\\Ecommerce.DAL\\Ecommerce.DAL.csproj": {
+              "projectPath": "C:\\Users\\Admin\\.ng\\.m\\.He-thong-thuong-mai-ien-tu-tich-hop-AI\\backend\\src\\Ecommerce.DAL\\Ecommerce.DAL.csproj"
             }
           }
         }
@@ -3530,6 +3530,26 @@
       "warningLevel": 1,
       "message": "Package 'AutoMapper' 13.0.1 has a known high severity vulnerability, https://github.com/advisories/GHSA-rvv3-g6hj-g44x",
       "libraryId": "AutoMapper",
+      "targetGraphs": [
+        "net10.0"
+      ]
+    },
+    {
+      "code": "NU1902",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Package 'System.Security.Cryptography.Pkcs' 9.0.4 has a known moderate severity vulnerability, https://github.com/advisories/GHSA-2fmv-rv2c-59x7",
+      "libraryId": "System.Security.Cryptography.Pkcs",
+      "targetGraphs": [
+        "net10.0"
+      ]
+    },
+    {
+      "code": "NU1903",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Package 'System.Security.Cryptography.Pkcs' 9.0.4 has a known high severity vulnerability, https://github.com/advisories/GHSA-846f-f764-76mx",
+      "libraryId": "System.Security.Cryptography.Pkcs",
       "targetGraphs": [
         "net10.0"
       ]

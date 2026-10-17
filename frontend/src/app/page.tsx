@@ -61,7 +61,9 @@ export default function HomePage() {
     productService
       .getProducts({
         sellerId: sellerId && sellerId > 0 ? sellerId : undefined,
-        pageSize: 100,
+        // Giảm từ 100 → 48: tải đủ sản phẩm hiển thị mà không quá tải DB
+        // Nếu cần thêm, implement infinite scroll / load more
+        pageSize: 48,
       })
       .then((res) => {
         if (isMounted && res && res.items && res.items.length > 0) {
@@ -217,7 +219,7 @@ export default function HomePage() {
         onScrollToCatalog={scrollToCatalog}
       />
 
-      {/* 3. SHOWROOM SẢN PHẨM CỬA HÀNG */}
+      {/* 4. SHOWROOM SẢN PHẨM CỬA HÀNG */}
       <section className="page-section shop-section" id="catalog">
         <main className="main-layout">
           <ProductFilters

@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect, useRef, useCallback } from 'react';
-import { ChevronLeft, ChevronRight, Sparkles, ArrowDown } from 'lucide-react';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 interface BrandCinematicShowcaseProps {
   shopName?: string;
@@ -33,12 +33,22 @@ export const BrandCinematicShowcase: React.FC<BrandCinematicShowcaseProps> = ({
   const [currentIndex, setCurrentIndex] = useState(0);
   const [nextIndex, setNextIndex] = useState<number | null>(null);
   const [isSliding, setIsSliding] = useState(false);
+
+  // Theo dõi các ảnh đã được "unlock" để browser load.
+  // Ban đầu chỉ load 2 ảnh đầu (ảnh hiện tại + ảnh kế tiếp).
+  // Các ảnh còn lại chỉ được load khi thực sự cần hiển thị.
+  const [loadedIndexes, setLoadedIndexes] = useState<Set<number>>(
+    () => new Set([0, 1])
+  );
+
   const stageRef = useRef<HTMLDivElement>(null);
   const total = HOME_SLIDES.length;
 
   const triggerNext = useCallback(() => {
     if (isSliding) return;
     const incoming = (currentIndex + 1) % total;
+    // Preload ảnh kế tiếp + ảnh sau nó (look-ahead 1)
+    setLoadedIndexes((prev) => new Set([...prev, incoming, (incoming + 1) % total]));
     setNextIndex(incoming);
     setIsSliding(true);
   }, [currentIndex, isSliding, total]);
@@ -46,6 +56,7 @@ export const BrandCinematicShowcase: React.FC<BrandCinematicShowcaseProps> = ({
   const triggerPrev = useCallback(() => {
     if (isSliding) return;
     const incoming = (currentIndex - 1 + total) % total;
+    setLoadedIndexes((prev) => new Set([...prev, incoming]));
     setNextIndex(incoming);
     setIsSliding(true);
   }, [currentIndex, isSliding, total]);
@@ -53,27 +64,33 @@ export const BrandCinematicShowcase: React.FC<BrandCinematicShowcaseProps> = ({
   // Hoàn tất animation trượt mượt sau 1.1 giây
   useEffect(() => {
     if (!isSliding || nextIndex === null) return;
-
     const timer = setTimeout(() => {
       setCurrentIndex(nextIndex);
       setNextIndex(null);
       setIsSliding(false);
     }, 1100);
-
     return () => clearTimeout(timer);
   }, [isSliding, nextIndex]);
 
-  // Cứ 10 giây (10000ms) là tự động đổi ảnh 1 lần với hiệu ứng trượt từ phải sang trái
+  // Cứ 10 giây tự động đổi ảnh
   useEffect(() => {
     const autoInterval = setInterval(() => {
       triggerNext();
     }, 10000);
-
     return () => clearInterval(autoInterval);
   }, [triggerNext]);
 
   return (
     <section className="brand-cinematic-wrapper" id="brand-showcase">
+      {/* Preload ảnh đầu tiên với priority cao — cải thiện LCP đáng kể */}
+      {/* eslint-disable-next-line @next/next/no-head-element */}
+      <link
+        rel="preload"
+        as="image"
+        href={HOME_SLIDES[0]}
+        fetchPriority="high"
+      />
+
       {/* ─── SÂN KHẤU CHIẾU ẢNH CHÍNH (ĐỔI ẢNH MỖI 10S, TRƯỢT PHẢI SANG TRÁI) ─── */}
       <div
         ref={stageRef}
@@ -91,8 +108,8 @@ export const BrandCinematicShowcase: React.FC<BrandCinematicShowcaseProps> = ({
           }}
         />
 
-        {/* Layer 2: Ảnh kế tiếp (trượt từ bên phải vào) */}
-        {nextIndex !== null && (
+        {/* Layer 2: Ảnh kế tiếp — chỉ render khi đang slide và ảnh đã được unlock */}
+        {nextIndex !== null && loadedIndexes.has(nextIndex) && (
           <div
             className="absolute inset-0 w-full h-full bg-cover bg-center will-change-transform"
             style={{
@@ -112,7 +129,7 @@ export const BrandCinematicShowcase: React.FC<BrandCinematicShowcaseProps> = ({
           }}
         />
 
-        {/* Nút điều hướng hai bên trái / phải */}
+        {/* Nút điều hướng trái */}
         <button
           type="button"
           onClick={triggerPrev}
@@ -123,6 +140,7 @@ export const BrandCinematicShowcase: React.FC<BrandCinematicShowcaseProps> = ({
           <ChevronLeft size={26} />
         </button>
 
+        {/* Nút điều hướng phải */}
         <button
           type="button"
           onClick={triggerNext}
@@ -138,20 +156,14 @@ export const BrandCinematicShowcase: React.FC<BrandCinematicShowcaseProps> = ({
           <div
             key={currentIndex}
             className="h-full bg-white/70"
-            style={{
-              animation: 'showcaseProgress 10s linear infinite',
-            }}
+            style={{ animation: 'showcaseProgress 10s linear infinite' }}
           />
         </div>
 
         <style jsx>{`
           @keyframes showcaseProgress {
-            0% {
-              width: 0%;
-            }
-            100% {
-              width: 100%;
-            }
+            0% { width: 0%; }
+            100% { width: 100%; }
           }
         `}</style>
       </div>

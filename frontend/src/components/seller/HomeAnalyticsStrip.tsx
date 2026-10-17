@@ -13,18 +13,18 @@ interface MatrixMonthItem {
 }
 
 const MATRIX_DATA: MatrixMonthItem[] = [
-  { month: 'JAN', existing: 4, newUsers: 3, valTotal: '18k' },
-  { month: 'FEB', existing: 6, newUsers: 6, valTotal: '24k' },
-  { month: 'MAR', existing: 8, newUsers: 8, valTotal: '32k' },
-  { month: 'APR', existing: 6, newUsers: 10, valTotal: '32k' },
-  { month: 'MAY', existing: 9, newUsers: 13, valTotal: '44k' },
-  { month: 'JUN', existing: 11, newUsers: 19, valTotal: '60k', newText: '38k', existText: '18k' },
-  { month: 'JUL', existing: 8, newUsers: 11, valTotal: '38k' },
-  { month: 'AUG', existing: 6, newUsers: 9, valTotal: '30k' },
-  { month: 'SEP', existing: 5, newUsers: 7, valTotal: '24k' },
-  { month: 'OCT', existing: 8, newUsers: 10, valTotal: '36k' },
-  { month: 'NOV', existing: 6, newUsers: 12, valTotal: '36k' },
-  { month: 'DEC', existing: 9, newUsers: 13, valTotal: '44k' },
+  { month: 'T1', existing: 4, newUsers: 3, valTotal: '14k' },
+  { month: 'T2', existing: 5, newUsers: 4, valTotal: '18k' },
+  { month: 'T3', existing: 6, newUsers: 6, valTotal: '24k' },
+  { month: 'T4', existing: 5, newUsers: 7, valTotal: '26k' },
+  { month: 'T5', existing: 7, newUsers: 10, valTotal: '34k' },
+  { month: 'T6', existing: 8, newUsers: 14, valTotal: '56k', newText: '38k', existText: '18k' },
+  { month: 'T7', existing: 6, newUsers: 8, valTotal: '30k' },
+  { month: 'T8', existing: 5, newUsers: 6, valTotal: '22k' },
+  { month: 'T9', existing: 4, newUsers: 5, valTotal: '19k' },
+  { month: 'T10', existing: 6, newUsers: 7, valTotal: '27k' },
+  { month: 'T11', existing: 5, newUsers: 8, valTotal: '28k' },
+  { month: 'T12', existing: 7, newUsers: 9, valTotal: '32k' },
 ];
 
 const NEEDLE_HEIGHTS = [
@@ -49,38 +49,38 @@ const NEEDLE_HEIGHTS = [
 ];
 
 export const HomeAnalyticsStrip: React.FC = () => {
-  const [activeMonth, setActiveMonth] = useState<string>('JUN');
+  const [activeMonth, setActiveMonth] = useState<string>('T6');
   const [period, setPeriod] = useState<'weekly' | 'monthly' | 'yearly'>('monthly');
   const [showAiModal, setShowAiModal] = useState(false);
 
   return (
-    <section className="w-full bg-[#F6F7F9] py-8 px-[3.5vw] border-t border-b border-[#E5E7EB] min-h-[50vh]">
-      <div className="max-w-[1440px] mx-auto flex flex-col lg:flex-row gap-5">
+    <section className="w-full bg-[#F6F7F9] py-4 px-3 sm:px-5 md:px-7 border-t border-b border-[#E5E7EB]">
+      <div className="analytics-two-col-grid w-full mx-auto">
         {/* ─── CỘT TRÁI: SALES TREND ─── */}
-        <div className="flex-1 min-w-0 bg-white border border-[#E5E7EB] rounded-[10px] p-5 sm:p-6 flex flex-col justify-between shadow-none">
+        <div className="dash-card">
           {/* Header */}
-          <div className="flex justify-between items-center mb-4">
+          <div className="flex justify-between items-center mb-3">
             <div className="flex items-center gap-1.5 text-xs font-bold text-[#111827] tracking-wider uppercase">
-              <span>SALES TREND</span>
+              <span>XU HƯỚNG DOANH SỐ</span>
               <span className="text-[#9CA3AF] text-sm cursor-pointer" title="Xu hướng doanh thu theo thời gian">ⓘ</span>
             </div>
             <span className="text-[#9CA3AF] cursor-pointer text-base leading-none hover:text-[#111827]">⋯</span>
           </div>
 
           {/* Toolbar */}
-          <div className="flex flex-wrap justify-between items-center gap-3 mb-6">
+          <div className="flex flex-wrap justify-between items-center gap-3 mb-3">
             <div className="flex flex-wrap items-baseline gap-4 sm:gap-6">
               <div className="text-sm text-[#4B5563] font-medium">
-                Total Revenue : <strong className="text-xl sm:text-2xl font-black text-[#111827] ml-1.5">$29.230.000</strong>
+                Tổng Doanh Thu : <strong className="text-xl sm:text-2xl font-black text-[#111827] ml-1.5">$145.000.000</strong>
               </div>
               <div className="flex items-center gap-3.5 text-[0.72rem] font-bold text-[#374151] tracking-wider uppercase">
                 <div className="flex items-center gap-1.5">
                   <span className="w-2 h-2 bg-[#E5E7EB] inline-block rounded-[1px]" />
-                  <span>NEW USER</span>
+                  <span>NGƯỜI DÙNG MỚI</span>
                 </div>
                 <div className="flex items-center gap-1.5">
                   <span className="w-2 h-2 bg-[#111827] inline-block rounded-[1px]" />
-                  <span>EXISTING USER</span>
+                  <span>NGƯỜI DÙNG CŨ</span>
                 </div>
               </div>
             </div>
@@ -94,7 +94,7 @@ export const HomeAnalyticsStrip: React.FC = () => {
                 }`}
                 onClick={() => setPeriod('weekly')}
               >
-                Weekly
+                Tuần
               </button>
               <button
                 type="button"
@@ -103,7 +103,7 @@ export const HomeAnalyticsStrip: React.FC = () => {
                 }`}
                 onClick={() => setPeriod('monthly')}
               >
-                Monthly
+                Tháng
               </button>
               <button
                 type="button"
@@ -112,13 +112,13 @@ export const HomeAnalyticsStrip: React.FC = () => {
                 }`}
                 onClick={() => setPeriod('yearly')}
               >
-                Yearly
+                Năm
               </button>
             </div>
           </div>
 
           {/* Block Matrix Bar Chart */}
-          <div className="flex relative h-[250px] mt-2 select-none">
+          <div className="flex relative h-[175px] mt-1 select-none">
             {/* Y-Axis */}
             <div className="flex flex-col justify-between pr-3 text-[0.7rem] font-semibold text-[#9CA3AF] text-right h-[calc(100%-24px)] w-7 shrink-0">
               <span>60k</span>
@@ -157,17 +157,17 @@ export const HomeAnalyticsStrip: React.FC = () => {
                         <>
                           {/* Tooltip Pin */}
                           <div className="absolute -top-1 left-1/2 -translate-x-1/2 bg-white border border-[#E5E7EB] rounded-md px-3 py-2 shadow-md whitespace-nowrap z-20 pointer-events-none">
-                            <div className="text-[0.72rem] font-bold text-[#111827] mb-1">{item.month} 2025</div>
+                            <div className="text-[0.72rem] font-bold text-[#111827] mb-1">Tháng {item.month.replace('T', '')}, 2025</div>
                             <div className="flex items-center gap-1.5 text-[0.68rem] text-[#4B5563]">
                               <span className="w-2 h-2 bg-[#E5E7EB] rounded-[1px] inline-block" />
                               <span>
-                                New User <strong className="text-[#111827]">{item.newText || item.valTotal}</strong>
+                                Khách Mới <strong className="text-[#111827]">{item.newText || item.valTotal}</strong>
                               </span>
                             </div>
                             <div className="flex items-center gap-1.5 text-[0.68rem] text-[#4B5563] mt-0.5">
                               <span className="w-2 h-2 bg-[#111827] rounded-[1px] inline-block" />
                               <span>
-                                Existing User <strong className="text-[#111827]">{item.existText || '18k'}</strong>
+                                Khách Cũ <strong className="text-[#111827]">{item.existText || '18k'}</strong>
                               </span>
                             </div>
                           </div>
@@ -214,11 +214,11 @@ export const HomeAnalyticsStrip: React.FC = () => {
         </div>
 
         {/* ─── CỘT PHẢI: REVENUE BREAKDOWN ─── */}
-        <div className="w-full lg:w-[240px] lg:shrink-0 bg-white border border-[#E5E7EB] rounded-[10px] p-5 sm:p-6 flex flex-col justify-between shadow-none">
+        <div className="dash-card">
           {/* Header */}
           <div className="flex justify-between items-center mb-3">
             <div className="flex items-center gap-1.5 text-xs font-bold text-[#111827] tracking-wider uppercase">
-              <span>REVENUE BREAKDOWN</span>
+              <span>PHÂN BỔ DOANH THU</span>
               <span className="text-[#9CA3AF] text-sm cursor-pointer" title="Phân rã theo danh mục doanh thu">ⓘ</span>
             </div>
             <span className="text-[#9CA3AF] cursor-pointer text-base leading-none hover:text-[#111827]">⋯</span>
@@ -226,45 +226,45 @@ export const HomeAnalyticsStrip: React.FC = () => {
 
           {/* Sub Header & Date Pill */}
           <div className="flex justify-between items-center mb-2">
-            <span className="text-xs text-[#6B7280] font-medium">Revenue by Category</span>
+            <span className="text-xs text-[#6B7280] font-medium">Doanh thu theo ngành hàng</span>
             <div className="inline-flex items-center gap-1.5 bg-[#F9FAFB] border border-[#E5E7EB] rounded-md px-2.5 py-1 text-[0.72rem] font-semibold text-[#374151] cursor-pointer hover:bg-[#F3F4F6]">
-              <span>📅 Jan 1 - Dec 31</span>
+              <span>📅 01 Thg 1 - 31 Thg 12</span>
               <span className="text-[0.6rem] text-[#6B7280]">▼</span>
             </div>
           </div>
 
           {/* Big Amount */}
           <div className="text-2xl sm:text-3xl font-black text-[#111827] tracking-tight mb-3">
-            $29.230.000
+            $145.000.000
           </div>
 
           {/* AI Insight Button */}
           <button
             type="button"
-            className="w-full bg-[#F9FAFB] hover:bg-[#F3F4F6] border border-[#E5E7EB] rounded-md px-3.5 py-2.5 flex items-center justify-between text-xs font-semibold text-[#374151] transition-all cursor-pointer mb-4"
+            className="w-full bg-[#F9FAFB] hover:bg-[#F3F4F6] border border-[#E5E7EB] rounded-md px-3 py-1.5 flex items-center justify-between text-xs font-semibold text-[#374151] transition-all cursor-pointer mb-2"
             onClick={() => setShowAiModal(true)}
           >
             <span className="flex items-center gap-2">
-              <Star size={14} className="text-[#374151]" />
-              <span>Get AI insight for better analysis</span>
+              <Star size={13} className="text-[#374151]" />
+              <span className="text-[0.72rem]">Nhận phân tích thông minh từ AI</span>
             </span>
-            <ChevronRight size={14} className="text-[#9CA3AF]" />
+            <ChevronRight size={13} className="text-[#9CA3AF]" />
           </button>
 
           {/* Vertical Needle Chart */}
-          <div className="flex items-end justify-between h-[135px] px-1 py-1.5 border-b border-[#E5E7EB]">
+          <div className="needle-chart-container">
             {NEEDLE_HEIGHTS.map((h, i) => (
-              <div key={i} className="flex flex-col-reverse items-center w-[4%] h-full justify-start">
-                <div className="w-[2px] bg-[#111827] rounded-[1px]" style={{ height: `${h.dark}px` }} />
-                <div className="w-[2px] bg-[#E5E7EB] rounded-[1px]" style={{ height: `${h.light}px` }} />
+              <div key={i} className="needle-col">
+                <div className="needle-dark-seg" style={{ height: `${Math.round(h.dark * 0.65)}px` }} />
+                <div className="needle-light-seg" style={{ height: `${Math.round(h.light * 0.65)}px` }} />
               </div>
             ))}
           </div>
 
           {/* Axis Labels */}
-          <div className="flex justify-between items-center text-[0.68rem] text-[#9CA3AF] font-bold mt-2">
-            <span>1 JAN</span>
-            <span>31 DEC 2025</span>
+          <div className="flex justify-between items-center text-[0.68rem] text-[#9CA3AF] font-bold mt-1">
+            <span>01 THG 1</span>
+            <span>31 THG 12, 2025</span>
           </div>
         </div>
       </div>
@@ -281,7 +281,7 @@ export const HomeAnalyticsStrip: React.FC = () => {
           >
             <div className="flex items-center gap-2.5 mb-4">
               <span className="text-2xl">✨</span>
-              <h3 className="text-lg font-bold text-[#111827]">AI Business Insights & Analysis</h3>
+              <h3 className="text-lg font-bold text-[#111827]">Phân Tích & Dự Báo Kinh Doanh AI</h3>
             </div>
             <div className="text-sm leading-relaxed text-[#4B5563] space-y-2.5">
               <p>

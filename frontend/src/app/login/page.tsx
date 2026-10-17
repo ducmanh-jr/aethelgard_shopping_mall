@@ -1,6 +1,6 @@
 'use client';
 import React, { useState, useEffect, useRef } from 'react';
-import { Eye, EyeOff, ArrowLeft } from 'lucide-react';
+import { Eye, EyeOff, ArrowLeft, Shield, Store, User } from 'lucide-react';
 import GoogleButton from '@/components/auth/GoogleButton';
 import { authService } from '@/services/auth.service';
 
@@ -28,6 +28,7 @@ export default function LoginPage() {
   const [forgotStep, setForgotStep] = useState<1 | 2 | 3>(1);
 
   // Form values
+  const [selectedRole, setSelectedRole] = useState<'Admin' | 'Seller' | 'Customer' | null>(null);
   const [loginEmail, setLoginEmail] = useState('');
   const [loginPassword, setLoginPassword] = useState('');
   const [regName, setRegName] = useState('');
@@ -151,6 +152,21 @@ export default function LoginPage() {
     } catch (err: any) {
       const errorMsg = err.response?.data?.message || err.message || 'Email hoặc mật khẩu không chính xác.';
       showToast(errorMsg);
+    }
+  };
+
+  const handleRoleSelect = (role: 'Admin' | 'Seller' | 'Customer') => {
+    setSelectedRole(role);
+    setActiveTab('login');
+    if (role === 'Admin') {
+      setLoginEmail('admin@gmail.com');
+      setLoginPassword('Password123@');
+    } else if (role === 'Seller') {
+      setLoginEmail('dior@gmail.com');
+      setLoginPassword('Password123@');
+    } else {
+      setLoginEmail('esther.howard@example.com');
+      setLoginPassword('Password123@');
     }
   };
 
@@ -296,8 +312,61 @@ export default function LoginPage() {
             </p>
 
             {/* Real Google GIS OAuth Button */}
-            <div className="mb-6">
+            <div>
               <GoogleButton onCredential={handleGoogleCredential} label="Tiếp tục với Google" />
+            </div>
+
+            {/* Quick Access Roles Row - Minimalist, Pure & Elegant */}
+            <div className="mt-3.5 mb-6">
+              <div className="grid grid-cols-3 gap-2.5">
+                <button
+                  type="button"
+                  onClick={() => handleRoleSelect('Admin')}
+                  className={`group relative flex items-center justify-center gap-1.5 py-2.5 px-3 rounded-xl border transition-all duration-200 cursor-pointer ${
+                    selectedRole === 'Admin'
+                      ? 'bg-slate-900 border-slate-900 text-white shadow-sm'
+                      : 'bg-white border-slate-200/90 text-slate-700 hover:border-slate-400 hover:bg-slate-50 shadow-[0_1px_2px_rgba(0,0,0,0.04)]'
+                  }`}
+                  title="Chọn vai trò Quản trị viên (admin@gmail.com)"
+                >
+                  <Shield className={`w-3.5 h-3.5 transition-colors ${
+                    selectedRole === 'Admin' ? 'text-white' : 'text-slate-400 group-hover:text-slate-700'
+                  }`} />
+                  <span className="text-[12px] font-semibold tracking-wide">Admin</span>
+                </button>
+
+                <button
+                  type="button"
+                  onClick={() => handleRoleSelect('Seller')}
+                  className={`group relative flex items-center justify-center gap-1.5 py-2.5 px-3 rounded-xl border transition-all duration-200 cursor-pointer ${
+                    selectedRole === 'Seller'
+                      ? 'bg-slate-900 border-slate-900 text-white shadow-sm'
+                      : 'bg-white border-slate-200/90 text-slate-700 hover:border-slate-400 hover:bg-slate-50 shadow-[0_1px_2px_rgba(0,0,0,0.04)]'
+                  }`}
+                  title="Chọn vai trò Người bán (dior@gmail.com)"
+                >
+                  <Store className={`w-3.5 h-3.5 transition-colors ${
+                    selectedRole === 'Seller' ? 'text-white' : 'text-slate-400 group-hover:text-slate-700'
+                  }`} />
+                  <span className="text-[12px] font-semibold tracking-wide">Seller</span>
+                </button>
+
+                <button
+                  type="button"
+                  onClick={() => handleRoleSelect('Customer')}
+                  className={`group relative flex items-center justify-center gap-1.5 py-2.5 px-3 rounded-xl border transition-all duration-200 cursor-pointer ${
+                    selectedRole === 'Customer'
+                      ? 'bg-slate-900 border-slate-900 text-white shadow-sm'
+                      : 'bg-white border-slate-200/90 text-slate-700 hover:border-slate-400 hover:bg-slate-50 shadow-[0_1px_2px_rgba(0,0,0,0.04)]'
+                  }`}
+                  title="Chọn vai trò Khách hàng (esther.howard@example.com)"
+                >
+                  <User className={`w-3.5 h-3.5 transition-colors ${
+                    selectedRole === 'Customer' ? 'text-white' : 'text-slate-400 group-hover:text-slate-700'
+                  }`} />
+                  <span className="text-[12px] font-semibold tracking-wide">Customer</span>
+                </button>
+              </div>
             </div>
 
             {/* Divider */}
@@ -337,7 +406,7 @@ export default function LoginPage() {
                     value={loginEmail}
                     onChange={(e) => setLoginEmail(e.target.value)}
                     className="input-field !pl-4"
-                    placeholder="admin@gmail.com"
+                    placeholder="dior@gmail.com"
                   />
                 </div>
 
@@ -419,7 +488,7 @@ export default function LoginPage() {
                     value={regEmail}
                     onChange={(e) => setRegEmail(e.target.value)}
                     className="input-field !pl-4"
-                    placeholder="ducmanh@gmail.com"
+                    placeholder="seller@gmail.com"
                   />
                 </div>
 
