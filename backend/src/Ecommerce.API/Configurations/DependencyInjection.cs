@@ -1,0 +1,166 @@
+using System.Text;
+using System.Threading.RateLimiting;
+using AutoMapper;
+using Ecommerce.BLL.Interfaces;
+using Ecommerce.BLL.Mappings;
+using Ecommerce.BLL.Services;
+using Ecommerce.BLL.Validators;
+using Ecommerce.Common.DTOs;
+using Ecommerce.DAL.Context;
+using Ecommerce.DAL.Interfaces;
+using Ecommerce.DAL.Repositories;
+using FluentValidation;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.RateLimiting;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
+
+namespace Ecommerce.API.Configurations;
+
+public static class DependencyInjection
+{
+    public static IServiceCollection AddApplicationServices(this IServiceCollection services, IConfiguration configuration)
+    {
+        // 1. Ngữ cảnh CSDL (DbContext)
+        var provider = configuration["DatabaseProvider"] ?? "SqlServer";
+        services.AddDbContext<ApplicationDbContext>(options =>
+        {
+            if (provider.Equals("SqlServer", StringComparison.OrdinalIgnoreCase))
+            {
+                var sqlServerConn = configuration.GetConnectionString("SqlServerConnection")
+                    ?? "Server=localhost\\SQLEXPRESS;Database=fashion_mall;Integrated Security=True;TrustServerCertificate=True;MultipleActiveResultSets=True;";
+                options.UseSqlServer(sqlServerConn, b => b.MigrationsAssembly(typeof(ApplicationDbContext).Assembly.FullName));
+            }
+            else
+            {
+                var sqliteConn = configuration.GetConnectionString("DefaultConnection") 
+                                 ?? "Data Source=fashion_mall.db";
+
+                // Đảm bảo tìm thấy file SQLite fashion_mall.db dù chạy từ bất kỳ thư mục nào (test runner, CLI, Docker)
+                if (sqliteConn.Contains("fashion_mall.db") && !sqliteConn.StartsWith("Data Source=/") && !sqliteConn.Contains(":\\"))
+                {
+                    var baseDir = AppContext.BaseDirectory;
+                    var candidatePaths = new[]
+                    {
+                        Path.Combine(baseDir, "fashion_mall.db"),
+                        Path.Combine(Directory.GetCurrentDirectory(), "fashion_mall.db"),
+                        Path.Combine(Directory.GetCurrentDirectory(), "backend", "fashion_mall.db"),
+                        Path.Combine(Directory.GetCurrentDirectory(), "src", "Ecommerce.API", "fashion_mall.db"),
+                        Path.Combine(Directory.GetCurrentDirectory(), "backend", "src", "Ecommerce.API", "fashion_mall.db"),
+                        Path.Combine(baseDir, "..", "..", "..", "..", "src", "Ecommerce.API", "fashion_mall.db"),
+                        Path.Combine(baseDir, "..", "..", "..", "..", "..", "backend", "src", "Ecommerce.API", "fashion_mall.db")
+                    };
+
+                    foreach (var path in candidatePaths)
+                    {
+                        var fullPath = Path.GetFullPath(path);
+                        if (File.Exists(fullPath) && new FileInfo(fullPath).Length > 1000000)
+                        {
+                            sqliteConn = $"Data Source={fullPath}";
+                            break;
+                        }
+                    }
+                }
+
+                options.UseSqlite(sqliteConn);
+            }
+        });
+
+        // 2. Unit Of Work & Repositories
+        services.AddScoped<IUnitOfWork, UnitOfWork>();
+        services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+
+        // 3. Dịch vụ nghiệp vụ
+        services.AddScoped<IAuthService, AuthService>();
+        services.AddScoped<IProductService, ProductService>();
+        services.AddScoped<IOrderService, OrderService>();
+        services.AddScoped<IInventoryService, InventoryService>();
+        services.AddScoped<IStatisticsService, StatisticsService>();
+        services.AddScoped<IStoreService, StoreService>();
+        services.AddHttpClient<IAIService, AIService>(client => client.Timeout = TimeSpan.FromSeconds(15));
+        services.AddScoped<IVnpayService, VnpayService>();
+        services.AddScoped<IAdminService, AdminService>();
+        services.AddHttpClient();
+
+        // 4. Cấu hình AutoMapper
+        var config = new MapperConfiguration(cfg =>
+        {
+            cfg.AddProfile<MappingProfile>();
+        });
+        services.AddSingleton<IMapper>(config.CreateMapper());
+
+        // 5. FluentValidation
+        services.AddScoped<IValidator<LoginRequestDto>, LoginRequestValidator>();
+        services.AddScoped<IValidator<RegisterRequestDto>, RegisterRequestValidator>();
+        services.AddScoped<IValidator<CreateProductDto>, CreateProductValidator>();
+
+        // 6. Xác thực JWT
+        var jwtKey = configuration["Jwt:Key"] ?? "AethelgardSuperSecretKey2026NguyenDucManh9999!";
+        var jwtIssuer = configuration["Jwt:Issuer"] ?? "AethelgardMall";
+        var jwtAudience = configuration["Jwt:Audience"] ?? "AethelgardMallClients";
+
+        services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+            .AddJwtBearer(options =>
+            {
+                options.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuer = true,
+                    ValidateAudience = true,
+                    ValidateLifetime = true,
+                    ValidateIssuerSigningKey = true,
+                    ValidIssuer = jwtIssuer,
+                    ValidAudience = jwtAudience,
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtKey))
+                };
+            });
+
+        services.AddAuthorization();
+
+        // 7. Chính sách CORS cho Frontend Vue 3 & SignalR
+        var allowedOrigins = configuration.GetSection("Cors:AllowedOrigins").Get<string[]>()
+            ?? new[] { "http://localhost:3001", "http://127.0.0.1:3001" };
+        services.AddCors(options =>
+        {
+            options.AddPolicy("AllowAll", policy =>
+            {
+                policy.WithOrigins(allowedOrigins)
+                      .AllowAnyHeader()
+                      .AllowAnyMethod()
+                      .AllowCredentials();
+            });
+        });
+
+        // 8. Real-time SignalR Hub
+        services.AddSignalR();
+
+        // 8. In-Memory Cache & Rate Limiting chống spam AI
+        services.AddMemoryCache();
+        services.AddRateLimiter(options =>
+        {
+            options.RejectionStatusCode = StatusCodes.Status429TooManyRequests;
+            options.AddPolicy("PasswordReset", context => RateLimitPartition.GetFixedWindowLimiter(
+                context.Connection.RemoteIpAddress?.ToString() ?? "unknown",
+                _ => new FixedWindowRateLimiterOptions
+                {
+                    PermitLimit = 25,
+                    Window = TimeSpan.FromMinutes(5)
+                }));
+            options.AddPolicy("AuthGoogle", context => RateLimitPartition.GetFixedWindowLimiter(
+                context.Connection.RemoteIpAddress?.ToString() ?? "unknown",
+                _ => new FixedWindowRateLimiterOptions
+                {
+                    PermitLimit = 20,
+                    Window = TimeSpan.FromMinutes(1)
+                }));
+            options.AddFixedWindowLimiter("AiLimiter", opt =>
+            {
+                opt.PermitLimit = 15;
+                opt.Window = TimeSpan.FromMinutes(1);
+                opt.QueueProcessingOrder = QueueProcessingOrder.OldestFirst;
+                opt.QueueLimit = 2;
+            });
+        });
+
+        return services;
+    }
+}
