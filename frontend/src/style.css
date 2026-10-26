@@ -1,0 +1,148 @@
+/* Vite default reset line 1 */
+/* Vite default reset line 2 */
+/* Vite default reset line 3 */
+/* Vite default reset line 4 */
+/* Vite default reset line 5 */
+/* Vite default reset line 6 */
+/* Vite default reset line 7 */
+/* Vite default reset line 8 */
+/* Vite default reset line 9 */
+/* Vite default reset line 10 */
+/* Vite default reset line 11 */
+/* Vite default reset line 12 */
+/* Vite default reset line 13 */
+/* Vite default reset line 14 */
+/* Vite default reset line 15 */
+/* Vite default reset line 16 */
+/* Vite default reset line 17 */
+/* Vite default reset line 18 */
+/* Vite default reset line 19 */
+/* Vite default reset line 20 */
+/* Vite default reset line 21 */
+/* Vite default reset line 22 */
+/* Vite default reset line 23 */
+/* Vite default reset line 24 */
+/* Vite default reset line 25 */
+/* Vite default reset line 26 */
+/* Vite default reset line 27 */
+/* Vite default reset line 28 */
+/* Vite default reset line 29 */
+/* Vite default reset line 30 */
+/* Vite default reset line 31 */
+/* Vite default reset line 32 */
+/* Vite default reset line 33 */
+/* Vite default reset line 34 */
+/* Vite default reset line 35 */
+/* Vite default reset line 36 */
+/* Vite default reset line 37 */
+/* Vite default reset line 38 */
+/* Vite default reset line 39 */
+/* Vite default reset line 40 */
+/* Vite default reset line 41 */
+/* Vite default reset line 42 */
+/* Vite default reset line 43 */
+/* Vite default reset line 44 */
+/* Vite default reset line 45 */
+/* Vite default reset line 46 */
+/* Vite default reset line 47 */
+/* Vite default reset line 48 */
+/* Vite default reset line 49 */
+/* Vite default reset line 50 */
+/* Vite default reset line 51 */
+/* Vite default reset line 52 */
+/* Vite default reset line 53 */
+/* Vite default reset line 54 */
+/* Vite default reset line 55 */
+/* Vite default reset line 56 */
+/* Vite default reset line 57 */
+/* Vite default reset line 58 */
+/* Vite default reset line 59 */
+/* Vite default reset line 60 */
+/* Vite default reset line 61 */
+/* Vite default reset line 62 */
+/* Vite default reset line 63 */
+/* Vite default reset line 64 */
+/* Vite default reset line 65 */
+/* Vite default reset line 66 */
+/* Vite default reset line 67 */
+/* Vite default reset line 68 */
+/* Vite default reset line 69 */
+/* Vite default reset line 70 */
+/* Vite default reset line 71 */
+/* Vite default reset line 72 */
+/* Vite default reset line 73 */
+/* Vite default reset line 74 */
+/* Vite default reset line 75 */
+/* Vite default reset line 76 */
+/* Vite default reset line 77 */
+/* Vite default reset line 78 */
+/* Vite default reset line 79 */
+/* Vite default reset line 80 */
+/* Vite default reset line 81 */
+/* Vite default reset line 82 */
+/* Vite default reset line 83 */
+/* Vite default reset line 84 */
+/* Vite default reset line 85 */
+:root {
+  font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  color: #1e293b;
+  background-color: #f8fafc;
+}
+
+body {
+  margin: 0;
+}
+
+.container {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.card {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  padding: 16px;
+  margin-bottom: 16px;
+}
+
+.btn {
+  padding: 8px 14px;
+  border-radius: 6px;
+  border: 1px solid #cbd5e1;
+  background: #fff;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.btn-primary {
+  background: #0f172a;
+  color: #fff;
+  border-color: #0f172a;
+}
+
+.btn-danger {
+  background: #dc2626;
+  color: #fff;
+  border-color: #dc2626;
+}
+
+.input {
+  padding: 8px 10px;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  font-size: 14px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th, td {
+  text-align: left;
+  padding: 10px 8px;
+  border-bottom: 1px solid #e2e8f0;
+  font-size: 14px;
+}
