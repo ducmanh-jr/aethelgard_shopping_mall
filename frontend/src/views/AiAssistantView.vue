@@ -83,29 +83,3 @@ async function generateDescription() {
     </div>
   </div>
 </template>
-
-<!-- Draft AI prompt preset 1 -->
-<!-- Draft AI prompt preset 2 -->
-<!-- Draft AI prompt preset 3 -->
-<!-- Draft AI prompt preset 4 -->
-<!-- Draft AI prompt preset 5 -->
-<!-- Draft AI prompt preset 6 -->
-<!-- Draft AI prompt preset 7 -->
-<!-- Draft AI prompt preset 8 -->
-<!-- Draft AI prompt preset 9 -->
-<!-- Draft AI prompt preset 10 -->
-<!-- Draft AI prompt preset 11 -->
-<!-- Draft AI prompt preset 12 -->
-<!-- Draft AI prompt preset 13 -->
-<!-- Draft AI prompt preset 14 -->
-<!-- Draft AI prompt preset 15 -->
-<!-- Draft AI prompt preset 16 -->
-<!-- Draft AI prompt preset 17 -->
-<!-- Draft AI prompt preset 18 -->
-<!-- Draft AI prompt preset 19 -->
-<!-- Draft AI prompt preset 20 -->
-<!-- Draft AI prompt preset 21 -->
-<!-- Draft AI prompt preset 22 -->
-<!-- Draft AI prompt preset 23 -->
-<!-- Draft AI prompt preset 24 -->
-<!-- Draft AI prompt preset 25 -->
