@@ -14,14 +14,21 @@ out/
 build/
 dist/
 target/
+publish_linux/
+**/publish_linux/
+backend_publish/
+**/backend_publish/
+*.tsbuildinfo
 
 
-# Environment variables
+# Environment variables & local secrets
 .env
 .env.local
 .env.development.local
 .env.test.local
 .env.production.local
+appsettings.Development.json
+**/launchSettings.json
 
 # Debug logs
 npm-debug.log*
@@ -39,8 +46,10 @@ Thumbs.db
 *.swp
 *.swo
 
-# Lock files
+# Lock files & SQLite temporary files
 *.lock.db
+*.db-shm
+*.db-wal
 
 # Java / Maven
 *.class
@@ -55,3 +64,13 @@ __pycache__/
 *$py.class
 .venv/
 venv/
+
+
+tool/main.py
+tool/app/
+tool/reports/
+tool/start.cmd
+tool/scripts/crawl_ssense_4000_pipeline.py
+tool/scripts/run_native_scraper.py
+tool/.env
+tool/README.md
