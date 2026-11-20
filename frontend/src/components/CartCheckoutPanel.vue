@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { reactive } from 'vue';
+import { reactive, ref } from 'vue';
 import { authState } from '../stores/auth';
 import type { CartItem } from '../types/models';
 
@@ -19,6 +19,7 @@ const emit = defineEmits<{
   }];
 }>();
 
+const validationError = ref('');
 const checkoutForm = reactive({
   customerName: authState.user?.fullName || '',
   customerEmail: authState.user?.email || '',
@@ -28,10 +29,25 @@ const checkoutForm = reactive({
 });
 
 const total = () =>
-  props.cart.reduce((sum, item) => sum + item.product.basePrice * item.quantity, 0);
+  props.cart.reduce((sum, item) => sum + item.product.basePrice * (Number(item.quantity) || 0), 0);
 
 function formatVnd(value: number) {
   return new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(value);
+}
+
+function submitOrder() {
+  validationError.value = '';
+  for (const item of props.cart) {
+    if (!Number.isInteger(item.quantity) || item.quantity < 1 || item.quantity > item.product.stockQuantity) {
+      validationError.value = `Số lượng của "${item.product.name}" phải từ 1 đến ${item.product.stockQuantity}.`;
+      return;
+    }
+  }
+  if (!checkoutForm.customerName.trim() || !checkoutForm.customerPhone.trim() || !checkoutForm.shippingAddress.trim()) {
+    validationError.value = 'Vui lòng nhập đầy đủ tên người nhận, số điện thoại và địa chỉ giao hàng.';
+    return;
+  }
+  emit('submit', { ...checkoutForm });
 }
 </script>
 
@@ -76,11 +92,13 @@ function formatVnd(value: number) {
       <input v-model="checkoutForm.shippingAddress" class="input" placeholder="Địa chỉ giao hàng" style="grid-column: span 2;" />
     </div>
 
+    <p v-if="validationError" style="color: #dc2626; font-weight: 500; margin-top: 10px;">{{ validationError }}</p>
+
     <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 12px;">
       <strong>Tổng thanh toán: {{ formatVnd(total()) }}</strong>
       <div style="display: flex; gap: 8px;">
         <button class="btn" @click="emit('close')">Đóng</button>
-        <button class="btn btn-primary" @click="emit('submit', { ...checkoutForm })">Xác nhận đặt hàng</button>
+        <button class="btn btn-primary" @click="submitOrder">Xác nhận đặt hàng</button>
       </div>
     </div>
   </div>

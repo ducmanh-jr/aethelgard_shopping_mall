@@ -23,12 +23,22 @@ body {
 }
 
 .btn {
+  display: inline-block;
   padding: 8px 14px;
   border-radius: 6px;
   border: 1px solid #cbd5e1;
   background: #fff;
+  color: #0f172a;
+  text-decoration: none;
   cursor: pointer;
   font-weight: 500;
+  font-size: 14px;
+  line-height: 1.2;
+}
+
+.btn:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
 }
 
 .btn-primary {
@@ -60,4 +70,11 @@ th, td {
   padding: 10px 8px;
   border-bottom: 1px solid #e2e8f0;
   font-size: 14px;
+}
+
+.nav-active {
+  color: #fff !important;
+  font-weight: 600;
+  border-bottom: 2px solid #38bdf8;
+  padding-bottom: 2px;
 }

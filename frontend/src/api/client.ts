@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { clearAuth } from '../stores/auth';
 
 const apiClient = axios.create({
   baseURL: import.meta.env.VITE_API_URL || '/api',
@@ -14,5 +15,16 @@ apiClient.interceptors.request.use((config) => {
   }
   return config;
 });
+
+apiClient.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    const url = String(error?.config?.url || '');
+    if (error?.response?.status === 401 && !url.includes('/auth/login') && !url.includes('/auth/register')) {
+      clearAuth();
+    }
+    return Promise.reject(error);
+  }
+);
 
 export default apiClient;
