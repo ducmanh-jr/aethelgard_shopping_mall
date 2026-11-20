@@ -18,9 +18,9 @@ function logout() {
     >
       <div style="display: flex; gap: 18px; align-items: center;">
         <strong>Aethelgard Mall (Vue 3 + .NET)</strong>
-        <router-link to="/" style="color: #e2e8f0; text-decoration: none;">Sản phẩm</router-link>
-        <router-link to="/orders" style="color: #e2e8f0; text-decoration: none;">Đơn hàng</router-link>
-        <router-link to="/ai" style="color: #e2e8f0; text-decoration: none;">Trợ lý AI</router-link>
+        <router-link to="/" active-class="nav-active" style="color: #e2e8f0; text-decoration: none;">Sản phẩm</router-link>
+        <router-link to="/orders" active-class="nav-active" style="color: #e2e8f0; text-decoration: none;">Đơn hàng</router-link>
+        <router-link to="/ai" active-class="nav-active" style="color: #e2e8f0; text-decoration: none;">Trợ lý AI</router-link>
       </div>
       <div style="display: flex; gap: 12px; align-items: center;">
         <template v-if="authState.user">

@@ -22,6 +22,10 @@ const descError = ref('');
 async function askStylist() {
   recommendError.value = '';
   recommendResult.value = null;
+  if (!query.value.trim() && (!productId.value || productId.value <= 0)) {
+    recommendError.value = 'Vui lòng nhập câu hỏi phối đồ hoặc Product ID.';
+    return;
+  }
   loadingRecommend.value = true;
   try {
     const params: Record<string, unknown> = {};
@@ -38,6 +42,10 @@ async function askStylist() {
 async function generateDescription() {
   descError.value = '';
   descResult.value = null;
+  if (!descForm.value.productName.trim()) {
+    descError.value = 'Vui lòng nhập tên sản phẩm trước khi tạo mô tả AI.';
+    return;
+  }
   loadingDesc.value = true;
   try {
     descResult.value = await aiService.generateDescription(descForm.value);
