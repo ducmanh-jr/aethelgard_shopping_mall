@@ -19,6 +19,14 @@ public static class DatabaseSeeder
 
     public static async Task SeedAsync(ApplicationDbContext context)
     {
+        if (context.Database.IsSqlite())
+        {
+            await context.Database.EnsureCreatedAsync();
+        }
+        else
+        {
+            await context.Database.MigrateAsync();
+        }
         await EnsurePerformanceOptimizationsAsync(context);
         await EnsureReviewsTableAsync(context);
         await EnsureAdminColumnsAsync(context);
@@ -42,12 +50,6 @@ public static class DatabaseSeeder
             return;
         }
 
-        // Náº¿u chÆ°a cÃ³ dá»¯ liá»‡u má»›i tiáº¿p tá»¥c bÃªn dÆ°á»›i
-        await context.Database.MigrateAsync();
-
-        // ==========================================
-        // 1. Náº P NGÆ¯á»œI DÃ™NG (23 tÃ i khoáº£n)
-        // ==========================================
         if (!await context.Users.AnyAsync())
         {
             var defaultPwdHash = HashPassword("Password123@");
