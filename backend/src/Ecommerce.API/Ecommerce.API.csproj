@@ -22,10 +22,4 @@
     <ProjectReference Include="..\Ecommerce.DAL\Ecommerce.DAL.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <None Update="fashion_mall.db">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
-
 </Project>
